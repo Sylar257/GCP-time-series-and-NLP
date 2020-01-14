@@ -4,7 +4,7 @@
 
 [***LSTM,GRU,RNN in TensorFlow***](https://github.com/Sylar257/GCP-time-series-and-NLP#Basic_models): primal approaches for modeling time-series data.
 
-[***Ingesting data for Cloud-based analytics and ML***](https://github.com/Sylar257/GCP-time-series-and-NLP#Data_ingesting): bringing data to the cloud
+[***Building NLP models with Keras***](https://github.com/Sylar257/GCP-time-series-and-NLP#Building_NLP_models_with_Keras): bringing data to the cloud
 
 [***Designing adaptable ML systems***](https://github.com/Sylar257/GCP-time-series-and-NLP#adaptable_ml_system): how to mitigate potential changes in real-world that might affect our ML system
 
@@ -34,5 +34,26 @@ h1 = tf.layers.dense(state, DNN, activation=tf.nn.relu)
 pretidtions = tf.layers.dense(h1, 1, activation=None) #(BATCH_SIZE, 1)
 
 return predictions
+```
+
+## Building_NLP_models_with_Keras
+
+![keras_nlp](images/keras_nlp.jpg)
+
+If we want to use `Keras` for its fast prototyping properties. Bear in mind that `Keras` does not support distributed training itself.
+
+An common way to solve this problem is to convert `Keras` models to `keras.estimator`
+
+```python
+model = models.Squential()
+
+# define models architecture here
+...
+
+# compile model
+model.compile(...)
+
+# convert to estimator
+estimator = keras.estimator.model_to_estimator(keras_model=model)
 ```
 
