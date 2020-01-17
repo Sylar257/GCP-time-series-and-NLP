@@ -8,7 +8,7 @@
 
 [***TensorFlow Hub***](https://github.com/Sylar257/GCP-time-series-and-NLP#TensorFlow_Hub): a collection of pre-trained machine learning models and reusable modules
 
-[***High performance ML systems***](https://github.com/Sylar257/GCP-time-series-and-NLP#high_performance_ML_system): choose the right hardware and removing bottlenecks for ML systems
+[***Encoder-Decoder_networkds***](https://github.com/Sylar257/GCP-time-series-and-NLP#Encoder-Decoder-networks): choose the right hardware and removing bottlenecks for ML systems
 
 [***Hybrid ML systems***](https://github.com/Sylar257/GCP-time-series-and-NLP#Hybrid_ML_system): high-level overview of running hybrid systems on the Cloud
 
@@ -144,3 +144,10 @@ with tf.Graph().as_default():
     print(sess.run(embeddings))
 ```
 
+TensorFlow Hub has modules for **images**, **text**, and **Video**. It usually come with links to the original papers where the model in question was proposed.
+
+## Encoder-Decoder-networks
+
+There are many useful techniques in Encoder-Decoder network applications such as **Beam search** and **attention**. You will find useful interpretation and code implementations in [this repo](https://github.com/Sylar257/Image-Captioning-Project) and [this repo](https://github.com/Sylar257/Transformers-in-NLP). Here we will focus on the `TensorFlow` implementation on **GCP**:
+
+![GPU_no_attention](images\GPU_no_attention.png)
