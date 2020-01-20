@@ -8,9 +8,9 @@
 
 [***TensorFlow Hub***](https://github.com/Sylar257/GCP-time-series-and-NLP#TensorFlow_Hub): a collection of pre-trained machine learning models and reusable modules
 
-[***Encoder-Decoder_networkds***](https://github.com/Sylar257/GCP-time-series-and-NLP#Encoder-Decoder-networks): choose the right hardware and removing bottlenecks for ML systems
+[***Encoder-Decoder_networkds***](https://github.com/Sylar257/GCP-time-series-and-NLP#Encoder-Decoder-networks): often used in tasks such as language translation, question answering and text summarization
 
-[***Hybrid ML systems***](https://github.com/Sylar257/GCP-time-series-and-NLP#Hybrid_ML_system): high-level overview of running hybrid systems on the Cloud
+[***AutoML and DialogFlow***](https://github.com/Sylar257/GCP-time-series-and-NLP#AutoML_and_DialogFlow): A useful library that deal with all kinds of tensor-to-tensor problem setups
 
 
 
@@ -151,3 +151,47 @@ TensorFlow Hub has modules for **images**, **text**, and **Video**. It usually c
 There are many useful techniques in Encoder-Decoder network applications such as **Beam search** and **attention**. You will find useful interpretation and code implementations in [this repo](https://github.com/Sylar257/Image-Captioning-Project) and [this repo](https://github.com/Sylar257/Transformers-in-NLP). Here we will focus on the `TensorFlow` implementation on **GCP**:
 
 ![GPU_no_attention](images\GPU_no_attention.png)
+
+If we are interested in add **attention mechanism** to our `GRUCell`s, it’s as simple as instantiate the attention mechanism and put a wrapper on the `GRUCell`:
+
+![add_attention](images\add_attention.png)
+
+There is a trick of adding **Dropout layers** to an architecture—**list comprehension**:
+
+```python
+# create one GRUCell for each layer
+cells = [tf.nn.rnn_cell.GRUCell(CELLSIZE) for _ in range(NLAYERS)]
+# Dropout wrapper
+cells = [tf.nn.rnn_cell.DropoutWrapper(cell, output_keep_prob=pkeep) for cell in cells]
+
+# create multiRNNCell
+mcell = tf.nn.rnn_cell.MultiRNNCell(cells, state_is_tuple=False)
+
+# the forward loop
+Hr, H = tf.nn.dynamic_rnn(mcell, X, initial_state=Hin)
+```
+
+![drop_out](images\drop_out.png)
+
+## AutoML_and_DialogFlow
+
+![AutoML_translation](images\AutoML_translation.png)
+
+![AutoML](images\AutoML.png)
+
+### DialogFlow
+
+DialogFlow is an **end-to-end** developer platform for building natural and rich conversational experiences.
+
+There are three main components:
+
+* **Intents**: **actions** that a user wants to take
+* **Entities**: are the **nouns** in your dialog
+* **Context**：helps the chatbot to keep track
+
+**Intents** represent a **mapping** between *what the user says* to *what action should be taken by the catbot*. 
+
+**Entities** are the objects that we want to **act upon**. They help us get to the **specifies** of an interaction. Entities usually help our chatbot to decide what details it need to know and how it should react. Entities are also a great way to add **personalizations** to a chatbot. We can use an entity and data stored in a database to remember details about a user such as their name or favorite drink.
+
+**Context** is required for the chatbot to refer back to previous knowledge and give an appropriate answer.
+
